@@ -3,6 +3,18 @@ from django.db import models
 import uuid
 
 
+class Genre(models.Model):
+    """Model Representing a book genre"""
+
+    name = models.CharField(
+        max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+    def __str__(self):
+        """String for representing the Model object"""
+
+        return self.name
+
+
 class Author(models.Model):
     """Model representing an author."""
 
@@ -81,15 +93,3 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Return the URL to access the details of this book"""
         return reverse("book_detail", args=[str(self.id)])
-
-
-class Genre(models.Model):
-    """Model Representing a book genre"""
-
-    name = models.CharField(
-        max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-    def __str__(self):
-        """String for representing the Model object"""
-
-        return self.name
