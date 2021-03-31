@@ -36,6 +36,16 @@ class Author(models.Model):
         return f'{self.last_name}, {self.first_name}'
 
 
+class Language(models.Model):
+    """Model to represent the language (but not the specific language of a book)"""
+
+    name = models.CharField(max_length=100, null=True, blank=True)
+
+    def __str__(self):
+        """Return the language name in string representation"""
+        return self.name
+
+
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e., that can be borrowed from the library)"""
 
@@ -85,6 +95,8 @@ class Book(models.Model):
 
     genre = models.ManyToManyField(
         Genre, help_text='Select a genre for this book')
+
+    language = models.ForeignKey('Language', on_delete=models.SET, null=True)
 
     def __str__(self):
         """String representation for the model object"""
