@@ -100,7 +100,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String representation for the model object"""
-        return self.name
+        return self.title
 
     def get_absolute_url(self):
         """Return the URL to access the details of this book"""
