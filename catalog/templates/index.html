@@ -1,20 +1,24 @@
-{% extends "base_generic.html" %} {% block title %} Home {% endblock %} 
-{% block content %}
-<h1>Local Library Home</h1>
-<p>
-  Welcome to LocalLibrary, a website developed by
-  <em>Navayuvan</em>!
-</p>
-<h2>Dynamic content</h2>
-<p>The library has the following record counts:</p>
-<ul>
-  <li><strong>Books:</strong> {{ total_number_of_books }}</li>
-  <li><strong>Copies:</strong> {{ total_number_of_book_instance }}</li>
-  <li>
-    <strong>Copies available:</strong> {{ total_number_of_available_books }}
-  </li>
-  <li><strong>Authors:</strong> {{ total_number_of_authors }}</li>
-  <li><strong>Genre:</strong> {{ total_number_of_genre }}</li>
-
-</ul>
+{% extends "base_generic.html" %} {% block title %} Home {% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-6 hero-view">
+    <h1>Local Library Home</h1>
+    <p>
+      Welcome to LocalLibrary, a website developed by
+      <em>Navayuvan</em>!
+    </p>
+  </div>
+  <div class="col-md-6 content">
+    <h2>Dynamic content</h2>
+    <p>The library has the following record counts:</p>
+    <ul>
+      <li><strong>Books</strong> {{ total_number_of_books }}</li>
+      <li><strong>Copies</strong> {{ total_number_of_book_instance }}</li>
+      <li>
+        <strong>Copies available</strong> {{ total_number_of_available_books }}
+      </li>
+      <li><strong>Authors</strong> {{ total_number_of_authors }}</li>
+      <li><strong>Genre</strong> {{ total_number_of_genre }}</li>
+    </ul>
+  </div>
+</div>
 {% endblock %}
