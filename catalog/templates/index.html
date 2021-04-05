@@ -19,6 +19,10 @@
       <li><strong>Authors</strong> {{ total_number_of_authors }}</li>
       <li><strong>Genre</strong> {{ total_number_of_genre }}</li>
     </ul>
+    <p>
+      You have visited this page {{ number_of_visits }} time{% if number_of_visits > 1 %}s{% endif %}
+      
+    </p>
   </div>
 </div>
 {% endblock %}
