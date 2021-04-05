@@ -8,11 +8,9 @@
   {% for author in author_list %}
 
   <li>
-    <a href="{{ author.get_absolute_url }}"> {{author.first_name}} {{author.last_name}} </a>
-
-    <li> <strong> Date of Birth: </strong> {{author.date_of_birth}} </li>
-    <li> <strong> Date of Death: </strong> {{author.date_of_death}} </li>
-
+    <a href="{{ author.get_absolute_url }}">
+      {{author.first_name}} {{author.last_name}}
+    </a>
   </li>
 
   {% endfor %}
