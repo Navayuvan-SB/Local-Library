@@ -28,13 +28,12 @@
           <ul class="sidebar-nav">
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'books' %}">All books</a></li>
-            <li><a href="">All authors</a></li>
+            <li><a href="{% url 'authors' %}">All authors</a></li>
           </ul>
           {% endblock %}
         </div>
         <div class="col-sm-12 padding-top-1">
           {% block content %}{% endblock %} {% block pagination %} 
-          
           {% if is_paginated %}
 
           <div class="pagination">
@@ -50,7 +49,8 @@
               {% endif %}
 
               <span class="page-current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages
+                }}.
               </span>
 
               {% if page_obj.has_next %}
@@ -63,8 +63,7 @@
             </span>
           </div>
 
-          {% endif %}
-          
+          {% endif %} 
           {% endblock %}
         </div>
       </div>
