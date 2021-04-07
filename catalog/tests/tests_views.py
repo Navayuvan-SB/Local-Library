@@ -299,3 +299,127 @@ class RenewBookInstancesViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'renewal_date',
                              'Invalid date - renewal more than 4 weeks ahead')
+
+
+class AuthorCreateViewTest(TestCase):
+
+    def setUp(self):
+
+        testuser1 = User.objects.create_user(
+            username="testuser1", password="password1")
+        testuser2 = User.objects.create_user(
+            username="testuser2", password="password2")
+
+        testuser1.save()
+        testuser2.save()
+
+        can_mark_returned_permission = Permission.objects.get(
+            codename='can_mark_returned')
+
+        testuser2.user_permissions.add(can_mark_returned_permission)
+        testuser2.save()
+
+    def test_redirect_if_not_logged_in(self):
+
+        response = self.client.get(reverse('author-create'))
+
+        self.assertNotEqual(response.status_code, 200)
+        self.assertRedirects(
+            response, '/accounts/login/?next=/catalog/author/create/')
+
+    def test_block_user_logged_in_without_permission(self):
+
+        login = self.client.login(username="testuser1", password="password1")
+
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 403)
+
+    def test_allow_user_logged_in_with_permission(self):
+
+        login = self.client.login(username="testuser2", password="password2")
+
+        response = self.client.get(reverse('author-create'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_default_date_of_death_is_rendered(self):
+
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.get(reverse('author-create'))
+
+        self.assertEqual(
+            response.context['form'].initial['date_of_death'], '11/06/2020')
+
+    def test_display_correct_template(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.get(reverse('author-create'))
+
+        self.assertTemplateUsed(response, 'catalog/author_form.html')
+
+    def test_invalid_date_validation_works(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'first_name': 'Mathew',
+            'last_name': 'Williams',
+            'date_of_birth': '11/06/2000',
+            'date_of_death': '11/06.2021'
+        })
+
+        self.assertNotEqual(response.status_code, 302)
+
+    def test_last_name_missed_validation_works(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'first_name': 'Mathew',
+            'date_of_birth': '11/06/2000',
+            'date_of_death': '11/06/2021'
+        })
+
+        self.assertNotEqual(response.status_code, 302)
+
+    def test_first_name_missed_validation_works(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'last_name': 'Mathew',
+            'date_of_birth': '11/06/2000',
+            'date_of_death': '11/06/2021'
+        })
+
+        self.assertNotEqual(response.status_code, 302)
+
+    def test_date_of_birth_missed_validation_works(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'first_name': 'Mathew',
+            'last_name': 'Williams',
+            'date_of_death': '11/06.2021'
+        })
+
+        self.assertNotEqual(response.status_code, 302)
+
+    def test_date_of_death_missed_validation_works(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'first_name': 'Mathew',
+            'last_name': 'Williams',
+            'date_of_birth': '11/06/2021'
+        })
+
+        self.assertEqual(response.status_code, 302)
+
+    def test_redirect_user_to_all_authors_on_correct_submission(self):
+        login = self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('author-create'), {
+            'pk': '1',
+            'first_name': 'Mathew',
+            'last_name': 'Williams',
+            'date_of_birth': '11/06/2000',
+            'date_of_death': '11/06/2021'
+        })
+
+        self.assertRedirects(response, reverse(
+            'author-detail', kwargs={'pk': 1}))
