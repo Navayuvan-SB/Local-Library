@@ -63,7 +63,8 @@ class BookInstance(models.Model):
 
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
 
-    imprint = models.CharField(max_length=200)
+    imprint = models.ForeignKey(
+        'Publisher', on_delete=models.SET_NULL, null=True)
 
     due_back = models.DateField(null=True, blank=True)
 
