@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User, Permission
 from django.utils import timezone
 
-from catalog.models import Author, Genre, Language, Book, BookInstance
+from catalog.models import Author, Genre, Language, Book, BookInstance, Publisher
 
 import datetime
 import uuid
@@ -66,7 +66,7 @@ class LoanedBookInstanceByUserListViewTest(TestCase):
         # Create a book
         test_author = Author.objects.create(
             first_name="John", last_name="Mathews")
-        test_genre = Genre.objects.create(name='fantasy')
+        Genre.objects.create(name='fantasy')
         test_language = Language.objects.create(name="English")
         test_book = Book.objects.create(
             title="Book title",
@@ -82,14 +82,16 @@ class LoanedBookInstanceByUserListViewTest(TestCase):
 
         # Create book instances
         number_of_book_copies = 30
+        publisher = Publisher.objects.create(name="A wild snow")
         for book_copy in range(number_of_book_copies):
 
             return_date = timezone.localtime() + datetime.timedelta(days=book_copy % 5)
             the_borrower = test_user1 if book_copy % 2 else test_user2
             status = 'm'
+
             BookInstance.objects.create(
                 book=test_book,
-                imprint='Unlikely Imprint, 260',
+                imprint=publisher,
                 due_back=return_date,
                 borrower=the_borrower,
                 status=status
@@ -179,7 +181,7 @@ class RenewBookInstancesViewTest(TestCase):
         # Create a book
         test_author = Author.objects.create(
             first_name="John", last_name="Mathews")
-        test_genre = Genre.objects.create(name='fantasy')
+        Genre.objects.create(name='fantasy')
         test_language = Language.objects.create(name="English")
         test_book = Book.objects.create(
             title="Book title",
@@ -194,9 +196,11 @@ class RenewBookInstancesViewTest(TestCase):
         test_book.save()
 
         return_date = datetime.date.today() + datetime.timedelta(days=5)
+
+        publisher = Publisher.objects.create(name="A wild snow")
         self.test_bookinstance1 = BookInstance.objects.create(
             book=test_book,
-            imprint='Unlikely Imprint, 2016',
+            imprint=publisher,
             due_back=return_date,
             borrower=test_user1,
             status='o',
@@ -204,7 +208,7 @@ class RenewBookInstancesViewTest(TestCase):
 
         self.test_bookinstance2 = BookInstance.objects.create(
             book=test_book,
-            imprint='Unlikely Imprint, 2016',
+            imprint=publisher,
             due_back=return_date,
             borrower=test_user2,
             status='o',
