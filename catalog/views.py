@@ -14,7 +14,6 @@ from catalog.forms import RenewBookForm
 
 
 def index(request):
-    """View function for home page of site"""
 
     total_number_of_books = Book.objects.count()
     total_number_of_book_instance = Book.objects.count()

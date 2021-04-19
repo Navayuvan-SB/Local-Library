@@ -13,19 +13,16 @@ class Publisher(models.Model):
 
 
 class Genre(models.Model):
-    """Model Representing a book genre"""
 
     name = models.CharField(
         max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
 
     def __str__(self):
-        """String for representing the Model object"""
 
         return self.name
 
 
 class Author(models.Model):
-    """Model representing an author."""
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -37,26 +34,21 @@ class Author(models.Model):
         ordering = ['last_name', 'first_name']
 
     def get_absolute_url(self):
-        """Return the URL to access a particular author detail in"""
         return reverse("author-detail", args=[str(self.id)])
 
     def __str__(self):
-        """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
 
 
 class Language(models.Model):
-    """Model to represent the language (but not the specific language of a book)"""
 
     name = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        """Return the language name in string representation"""
         return self.name
 
 
 class BookInstance(models.Model):
-    """Model representing a specific copy of a book (i.e., that can be borrowed from the library)"""
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text='Unique id for particular book accorss whole library')
@@ -102,7 +94,6 @@ class BookInstance(models.Model):
 
 
 class Book(models.Model):
-    """Model Representing a book (but not a specific copy of a book)"""
 
     title = models.CharField(max_length=200)
 
@@ -120,15 +111,12 @@ class Book(models.Model):
     language = models.ForeignKey('Language', on_delete=models.SET, null=True)
 
     def __str__(self):
-        """String representation for the model object"""
         return self.title
 
     def get_absolute_url(self):
-        """Return the URL to access the details of this book"""
         return reverse("book-detail", args=[str(self.id)])
 
     def display_genre(self):
-        """Return the genre of the book"""
         return ', '.join(genre.name for genre in self.genre.all()[:3])
 
     display_genre.short_description = "Genre"
