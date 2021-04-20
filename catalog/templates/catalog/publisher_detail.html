@@ -3,18 +3,18 @@
 <h1>{{ publisher.name }}</h1>
 
 <div style="margin-left: 20px; margin-top: 20px">
-  <h4>Books</h4>
+  <h4>Books Copies</h4>
 
-  {% for book in publisher.book_set.all %}
-
+  {% for bookinstance in publisher.bookinstance_set.all %}
+  <li class="{% if bookinstance.is_overdue %}text-danger{% endif %}">
+    <a href="{% url 'book-detail' bookinstance.book.pk %}">
+      {{ bookinstance.book.title }}
+    </a>
+    {{bookinstance.due_back}}
+    |
+    {{bookinstance.borrower}}
+  </li>
   <hr />
-  <p><strong>Title:</strong> {{ book.title }}</p>
-
-  <p><strong> Author: </strong> {{book.author}}</p>
-  <p><strong> Summary: </strong>{{book.summary}}</p>
-  <p><strong> ISBN: </strong>{{book.isbn}}</p>
-  <p><strong> Language: </strong>{{book.language}}</p>
-
   {% empty %}
 
   <p>No books found!</p>
