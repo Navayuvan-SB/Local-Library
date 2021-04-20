@@ -1,11 +1,18 @@
 {% extends "base_generic.html" %} {% block content %}
 
+<form action="" method="GET">
+  {{filter.form.as_table}}
+
+  <button type="submit">Search</button>
+
+</form>
+
 <h1>Book List</h1>
 
 {% if book_list %}
 
 <ul>
-  {% for book in book_list %}
+  {% for book in filter.qs %}
 
   <li>
     <a href="{{ book.get_absolute_url }}"> {{book.title}} </a> {{book.author}}

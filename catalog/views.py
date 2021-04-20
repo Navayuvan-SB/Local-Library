@@ -12,6 +12,8 @@ import datetime
 from .models import Book, BookInstance, Author, Genre, Publisher
 from catalog.forms import RenewBookForm
 
+from .filters import BookFilter
+
 
 def index(request):
 
@@ -44,8 +46,11 @@ class BookListView(generic.ListView):
     model = Book
     paginate_by = 10
 
-    def get_queryset(self):
-        return Book.objects.filter()[:5]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = BookFilter(
+            self.request.GET, queryset=self.get_queryset())
+        return context
 
 
 class BookDetailView(generic.DetailView):
