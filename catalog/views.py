@@ -147,9 +147,10 @@ class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'update-book'
 
 
-class BookDelete(DeleteView):
+class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+    permission_required = 'delete-book'
 
 
 class GenreListView(generic.ListView):
