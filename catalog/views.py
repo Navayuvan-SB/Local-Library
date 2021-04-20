@@ -186,3 +186,9 @@ class PublisherCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.C
     permission_required = 'catalog.add_publisher'
     model = Publisher
     fields = ('name',)
+
+
+class PublisherUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'catalog.update_publisher'
+    model = Publisher
+    fields = ('name',)
