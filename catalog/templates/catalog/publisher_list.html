@@ -1,10 +1,21 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Publisher List</h1>
+<div class="header">
+  <h1>Publisher List</h1>
+
+  
+  {% if perms.catalog.add_publisher %}
+
+  <a href="{% url 'publisher-create' %}" class="btn btn-large bg-green c-white fw-600">Add Publisher</a>  
+    
+  {% endif %}
+    
+
+</div>
 
 {% if publisher_list %}
 
-<ul>
+<ul class="list">
   {% for publisher in publisher_list %}
 
   <li>

@@ -1,6 +1,16 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Title: {{ book.title }}</h1>
+<div class="header">
+  <h1>{{ book.title }}</h1>
+
+  
+  {% if perms.catalog.change_book %}
+    <div class="actions">
+      <a href="{% url 'book-update' book.pk %}" class="btn bg-yellow c-white">Edit</a>
+      <a href="{% url 'book-delete' book.pk %}" class="btn bg-red c-white">Delete</a>
+    </div>
+  {% endif %}
+</div>
 
 <p>
   <strong> Author: </strong>

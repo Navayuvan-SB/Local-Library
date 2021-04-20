@@ -1,13 +1,56 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<form action="" method="POST">
+<div class="header">
+  {% if object %}
+  <h1>Update book</h1>
+  {% else %}
+  <h1>Add a book</h1>
+  {% endif %}
+</div>
+
+<form action="" method="POST" class="form">
   {% csrf_token %}
 
-  <table>
-    {{form.as_table}}
-  </table>
+  <div class="row">
+    <div class="col-md-3">
+      <label for="">Title</label>
+      {{form.title}}
+    </div>
 
-  <input type="submit" value="Submit" />
+    <div class="col-md-3">
+      <label for="">Author</label>
+      {{form.author}}
+    </div>
+
+    <div class="col-md-3">
+      <label for="">ISBN</label>
+      {{form.isbn}}
+    </div>
+
+    <div class="col-md-3">
+      <label for="">Number of pages</label>
+      {{form.number_of_pages}}
+    </div>
+
+    <div class="col-md-3">
+      <label for="">Genre</label>
+      {{form.genre}}
+    </div>
+
+    <div class="col-md-3">
+      <label for="">Language</label>
+      {{form.language}}
+    </div>
+
+    <div class="col-md-6">
+      <label for="">Summary</label>
+      {{form.summary}}
+    </div>
+
+    <div class="col-md-12">
+      <button type="submit" class="bg-green c-white fw-600 mt-2">Submit</button>
+    </div>
+  </div>
 </form>
 
 {% endblock content %}

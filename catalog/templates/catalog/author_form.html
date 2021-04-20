@@ -1,5 +1,18 @@
 {% extends "base_generic.html" %} {% block content %}
 
+<div class="header">
+  
+  {% if object %}
+  <h1>Edit Author</h1>
+
+  {% else %}
+
+  <h1>Add Author</h1>
+
+  {% endif %}
+    
+</div>
+
 <form action="" method="POST">
   {% csrf_token %}
 
@@ -7,7 +20,7 @@
     {{form.as_table}}
   </table>
 
-  <input type="submit" value="Submit" />
+  <input type="submit" class="btn btn-large bg-green c-white fw-600 mt-5" value="Submit" />
 </form>
 
 {% endblock content %}

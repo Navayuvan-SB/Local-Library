@@ -1,12 +1,13 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Delete Publisher</h1>
+<div class="header"><h1>Delete Publisher</h1></div>
 
 <p>Are you sure want to delete the publisher: {{publisher}}?</p>
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Yes, Delete" />
+  <input type="submit" value="Yes, Delete" class="bg-red c-white fw-600" />
+  <input type="button" value="Cancel" onclick="javascript:history.go(-1);" />
 </form>
 
 {% endblock content %}

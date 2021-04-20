@@ -1,13 +1,43 @@
 {% extends "base_generic.html" %} {% block content %}
 
+<div class="header">
+  
+  {% if object %}
+
+  <h1>Edit Genre</h1>
+    
+  {% else %}
+
+  <h1>Add Genre</h1>
+
+  {% endif %}
+    
+</div>
+
 <form action="" method="POST">
   {% csrf_token %}
 
-  <table>
-    {{form.as_table}}
-  </table>
+  <div class="row">
 
-  <input type="submit" value="Submit" />
+    <div class="col-md-4">
+
+      <label for="">Name</label>
+      {{form.name}}
+
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-4">
+
+      <input type="submit" value="Submit" class="btn bg-green c-white fw-600 btn-large mt-5" />
+
+    </div>
+
+  </div>
+
+ 
 </form>
 
 {% endblock content %}

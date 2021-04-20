@@ -1,6 +1,19 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>{{ genre.name }}</h1>
+<div class="header">
+  <h1>{{ genre.name }}</h1>
+
+  
+  {% if perms.catalog.change_genre %}
+
+  <div class="actions">
+    <a href="{% url 'genre-update' genre.pk %}" class="btn bg-yellow c-white">Edit</a>
+    <a href="{% url 'genre-delete' genre.pk %}" class="btn bg-red c-white">Delete</a>
+  </div>
+    
+  {% endif %}
+    
+</div>
 
 <div style="margin-left: 20px; margin-top: 20px">
   <h4>Books</h4>
@@ -8,9 +21,9 @@
   {% for book in genre.book_set.all %}
 
   <hr />
-  <p><strong>Title:</strong> {{ book.title }}</p>
+  <p><strong>Title:</strong> <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></p>
 
-  <p><strong> Author: </strong> {{book.author}}</p>
+  <p><strong> Author: </strong>  <a href="{% url 'author-detail' book.author.pk %}">{{book.author}}</a> </p>
   <p><strong> Summary: </strong>{{book.summary}}</p>
   <p><strong> ISBN: </strong>{{book.isbn}}</p>
   <p><strong> Language: </strong>{{book.language}}</p>

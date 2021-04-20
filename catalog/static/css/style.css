@@ -4,18 +4,191 @@
   font-family: "Quicksand", sans-serif;
 }
 
+input,
+select,
+textarea {
+  outline: none;
+  border: none;
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 10px 30px;
+  background-color: #f2f2f2;
+}
+
+.login-wrapper {
+  width: 85vw;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-wrapper h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #424242;
+}
+
+.login-wrapper .error {
+  color: #db4537de;
+  margin-bottom: 5px;
+}
+
+.login-wrapper p.help-text {
+  width: 100%;
+  text-align: center;
+  color: #424242;
+}
+
+.login-wrapper .input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-wrapper .input-wrapper input {
+  margin: 0;
+  border: transparent;
+  min-width: 300px;
+}
+
+.login-wrapper .input-wrapper label {
+  color: #888888;
+}
+
+.login-wrapper .input-wrapper {
+  margin: 15px 0;
+}
+
+.login-wrapper input[type="submit"] {
+  min-width: 300px;
+  background-color: #0f9d58;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 100%;
+}
+
+.logout-wrapper {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logout-wrapper a {
+  background-color: #db4437;
+  padding: 6px 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 20px;
+}
+
+.signup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signup-wrapper input {
+  margin: 0;
+}
+
+.signup-wrapper .col-md-12 .input-wrapper input,
+.signup-wrapper .col-md-6 .input-wrapper input {
+  width: 100%;
+  border: none;
+}
+
+.signup-wrapper .input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.signup-wrapper .input-wrapper label {
+  color: #888888;
+}
+
+.signup-wrapper form {
+  width: 600px;
+}
+
+.signup-wrapper .col-md-12 ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.signup-wrapper .col-md-12 ul li {
+  margin: 5px 0;
+  color: #888888;
+}
+
+.signup-wrapper input[type="submit"] {
+  background-color: #0f9d58;
+  text-transform: uppercase;
+}
+
+.signup-wrapper .input-wrapper p {
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
 .sidebar-nav {
   padding: 0;
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
-.sidebar-nav li a {
-  margin: 0 2.3rem;
+.sidebar-nav li a,
+.user-wrapper a {
+  margin: 0 1.4rem;
   color: #424242;
   font-weight: 600;
+}
+
+.user-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.user-wrapper svg {
+  margin-right: 5px;
+}
+
+.user-wrapper p {
+  line-height: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
 .padding-top-1 {
@@ -52,4 +225,92 @@
   margin: 0.6rem 0;
   display: flex;
   justify-content: space-between;
+}
+
+.search-form .col-md-3,
+form .col-md-3,
+form .col-md-4,
+form .col-md-6,
+form .col-md-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 10px;
+}
+
+form textarea {
+  height: 100px;
+}
+
+.search-form .col-md-3:last-child {
+  align-items: center;
+}
+
+ul.list {
+  list-style: none;
+}
+
+ul.list li {
+  padding: 20px 0;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+ul.list li a.title {
+  font-weight: 600;
+}
+
+ul.list li p.description {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: #525252;
+}
+
+.btn {
+  outline: none;
+  border: none;
+  border-radius: 2px !important;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.btn-small {
+  padding: 5px 10px;
+}
+
+.btn-large {
+  padding: 12px 30px;
+}
+
+.bg-green {
+  background-color: #0f9d58;
+}
+
+.bg-yellow {
+  background-color: #f4b400;
+}
+
+.bg-red {
+  background-color: #db4437;
+}
+
+.c-white {
+  color: #fff !important;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 5rem;
+}
+
+.fw-600 {
+  font-weight: 600;
 }

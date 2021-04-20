@@ -1,10 +1,18 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Genre List</h1>
+<div class="header">
+  <h1>Genre List</h1>
+  
+  {% if perms.catalog.add_genre %}
+    <a href="{% url 'genre-create' %}" class="btn bg-green c-white fw-600 btn-large">Add Genre</a>
+  {% endif %}
+    
+  
+</div>
 
 {% if genre_list %}
 
-<ul>
+<ul class="list">
   {% for genre in genre_list %}
 
   <li>

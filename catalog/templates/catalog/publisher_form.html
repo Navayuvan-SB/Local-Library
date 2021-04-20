@@ -1,13 +1,36 @@
 {% extends "base_generic.html" %} {% block content %}
 
+<div class="header">
+  {% if object %}
+
+  <h1>Edit Publisher</h1>
+
+  {% else %}
+
+  <h1>Add Publisher</h1>
+
+  {% endif %}
+</div>
+
 <form action="" method="POST">
   {% csrf_token %}
 
-  <table>
-    {{form.as_table}}
-  </table>
+  <div class="row">
+    <div class="col-md-4">
+      <label for="">Name</label>
+      {{form.name}}
+    </div>
+  </div>
 
-  <input type="submit" value="Submit" />
+  <div class="row">
+    <div class="col-md-4">
+      <input
+        type="submit"
+        class="btn btn-large bg-green c-white fw-600 mt-2"
+        value="Submit"
+      />
+    </div>
+  </div>
 </form>
 
 {% endblock content %}

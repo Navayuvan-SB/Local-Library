@@ -1,6 +1,15 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>{{ author.first_name }} {{ author.last_name }}</h1>
+<div class="header">
+  <h1>{{ author.first_name }} {{ author.last_name }}</h1>
+
+  {% if perms.catalog.change_author %}
+  <div class="actions">
+    <a href="{% url 'author-update' author.pk %}" class="btn bg-yellow c-white">Edit</a>
+    <a href="{% url 'author-delete' author.pk %}" class="btn bg-red c-white">Delete</a>
+  </div>
+  {% endif %}
+</div>
 
 <p><strong> Date of Birth: </strong> {{author.date_of_birth}}</p>
 <p><strong> Date of Death: </strong> {{author.date_of_death}}</p>
@@ -11,9 +20,8 @@
   {% for book in author.book_set.all %}
 
   <hr />
-  <p><strong>Title:</strong> {{ book.title }}</p>
+  <p><strong>Title:</strong> <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a></p>
 
-  <p><strong> Author: </strong> {{book.author}}</p>
   <p><strong> Summary: </strong>{{book.summary}}</p>
   <p><strong> ISBN: </strong>{{book.isbn}}</p>
   <p><strong> Language: </strong>{{book.language}}</p>

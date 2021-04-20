@@ -18,34 +18,83 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+
+    {% block media %} {% endblock media %}
   </head>
 
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 padding-top-1">
-          {% block sidebar %}
+        {% block sidebar %}
+        <div class="col-sm-2 logout-wrapper padding-top-1">
+          {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}?next={{request.path}}" class="btn btn-small bg-red c-white">Logout</a>
+          {% endif %}
+        </div>
+
+        <div class="col-sm-8 padding-top-1">
           <ul class="sidebar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'books' %}">All books</a></li>
-            <li><a href="{% url 'authors' %}">All authors</a></li>
+            <li>
+              <a href="{% url 'index' %}">Home</a>
+            </li>
+            <li>
+              <a href="{% url 'books' %}">Books</a>
+            </li>
+            <li>
+              <a href="{% url 'authors' %}">Authors</a>
+            </li>
+            <li>
+              <a href="{% url 'genres' %}">Genres</a>
+            </li>
+            <li>
+              <a href="{% url 'publishers' %}">Publishers</a>
+            </li>
 
-            
             {% if user.is_authenticated %}
-              <li>User: {{ user.get_username }}</li>
-              <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
-              <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-              
-            {% else %}
 
-              <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+            <li>
+              <a href="{% url 'my-borrowed' %}">My Books</a>
+            </li>
 
             {% endif %}
+            
+            {% if perms.catalog.change_bookinstance %}
+            <li>
+              <a href="{% url 'borrowed' %}">Borrowed</a>
+            </li>
+            {% endif %}
               
-
           </ul>
-          {% endblock %}
         </div>
+
+        <div class="col-sm-2 user-wrapper padding-top-1">
+          {% if user.is_authenticated %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill="#000000"
+          >
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"
+            />
+          </svg>
+
+          <p>
+             {% if user.get_full_name %}
+            {{user.get_full_name}} {% else %} {{user}} {% endif %} 
+          </p>
+
+          {% else %}
+
+          <a href="{% url 'login' %}" class="btn btn-small bg-green c-white">login</a>
+
+          {% endif %}
+        </div>
+        {% endblock %}
+
         <div class="col-sm-12 padding-top-1">
           {% block content %}{% endblock %} {% block pagination %} 
           {% if is_paginated %}
@@ -54,31 +103,33 @@
             <span class="page-links">
               {% if page_obj.has_previous %}
 
-              <a
-                href="{{request.path}}?page={{ page_obj.previous_page_number }}"
-              >
-                previous
-              </a>
+              <div class="wrapper">
+                <a
+                  href="{{request.path}}?page={{ page_obj.previous_page_number }}"
+                >
+                  <
+                </a>
+              </div>
 
               {% endif %}
 
               <span class="page-current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages
-                }}.
+                <strong> {{ page_obj.number }} </strong> of
+                <strong> {{ page_obj.paginator.num_pages }} </strong>
               </span>
 
               {% if page_obj.has_next %}
-
-              <a href="{{request.path}}?page={{ page_obj.next_page_number }}">
-                next
-              </a>
+              <div class="wrapper">
+                <a href="{{request.path}}?page={{ page_obj.next_page_number }}">
+                  >
+                </a>
+              </div>
 
               {% endif %}
             </span>
           </div>
 
-          {% endif %} 
-          {% endblock %}
+          {% endif %} {% endblock %}
         </div>
       </div>
     </div>

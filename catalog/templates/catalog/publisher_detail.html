@@ -1,25 +1,40 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>{{ publisher.name }}</h1>
+<div class="header">
+  <h1>{{ publisher.name }}</h1>
 
+  {% if perms.catalog.change_publisher %}
+  <div class="actions">
+    <a
+      href="{% url 'publisher-update' publisher.pk %}"
+      class="btn bg-yellow c-white"
+      >Edit</a
+    >
+    <a
+      href="{% url 'publisher-delete' publisher.pk %}"
+      class="btn bg-red c-white"
+      >Delete</a
+    >
+  </div>
+  {% endif %}
+</div>
+
+<h4>Books Copies</h4>
 <div style="margin-left: 20px; margin-top: 20px">
-  <h4>Books Copies</h4>
+  <ul class="list">
+    {% for bookinstance in publisher.bookinstance_set.all %}
+    <li class="{% if bookinstance.is_overdue %}text-danger{% endif %}">
+      <a href="{% url 'book-detail' bookinstance.book.pk %}">
+        {{ bookinstance.book.title }}
+      </a>
+      {{bookinstance.due_back}} | {{bookinstance.borrower}}
+    </li>
+    {% empty %}
 
-  {% for bookinstance in publisher.bookinstance_set.all %}
-  <li class="{% if bookinstance.is_overdue %}text-danger{% endif %}">
-    <a href="{% url 'book-detail' bookinstance.book.pk %}">
-      {{ bookinstance.book.title }}
-    </a>
-    {{bookinstance.due_back}}
-    |
-    {{bookinstance.borrower}}
-  </li>
-  <hr />
-  {% empty %}
+    <p>No books found!</p>
 
-  <p>No books found!</p>
-
-  {% endfor %}
+    {% endfor %}
+  </ul>
 </div>
 
 {% endblock %}

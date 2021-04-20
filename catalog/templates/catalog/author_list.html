@@ -1,10 +1,15 @@
 {% extends "base_generic.html" %} {% block content %}
 
-<h1>Author List</h1>
+<div class="header">
+  <h1>Author List</h1>
+  {% if perms.catalog.add_author %}
+  <a href="{% url 'author-create' %}" class="btn btn-large bg-green c-white fw-600">Add Author</a>
+  {% endif %}
+</div>
 
 {% if author_list %}
 
-<ul>
+<ul class="list">
   {% for author in author_list %}
 
   <li>

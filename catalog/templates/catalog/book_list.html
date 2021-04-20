@@ -1,22 +1,45 @@
 {% extends "base_generic.html" %} {% block content %}
 
+<div class="header">
+<h1>Book List</h1>
+
+
+{% if perms.catalog.add_book %}
+  <a href="{% url 'book-create' %}" class="btn btn-large bg-green c-white fw-600">Add Book</a>  
+{% endif %}
+
+</div>
+
 <form action="" method="GET">
-  {{filter.form.as_table}}
-
-  <button type="submit">Search</button>
-
+  <div class="row search-form">
+    <div class="col-md-3">
+      <label for="">Title</label>
+      {{filter.form.title__icontains}}</div>
+    <div class="col-md-3">
+      <label for="">Author</label>
+      {{filter.form.author}}</div>
+    <div class="col-md-3">
+      <label for="">Genre</label>
+      {{filter.form.genre}}</div>
+    <div class="col-md-3">
+      <button type="submit" class="bg-green c-white">Search</button>
+    </div>
+  </div>
 </form>
 
-<h1>Book List</h1>
 
 {% if book_list %}
 
-<ul>
+<ul class="list">
   {% for book in filter.qs %}
 
   <li>
-    <a href="{{ book.get_absolute_url }}"> {{book.title}} </a> {{book.author}}
+    <a href="{{ book.get_absolute_url }}" class="title"> {{book.title}} </a> <p class="description">written by {{book.author}}</p>
   </li>
+
+  {% empty %}
+
+  <p>No Books found for your preferrence!</p>
 
   {% endfor %}
 </ul>
