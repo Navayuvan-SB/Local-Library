@@ -511,3 +511,59 @@ class GenreDetailViewTest(TestCase):
     def test_view_displays_correct_author(self):
         response = self.client.get(reverse('genre-detail', kwargs={'pk': 1}))
         self.assertContains(response, "Thriller")
+
+
+class GenreCreateViewTest(TestCase):
+
+    def setUp(self):
+
+        testuser1 = User.objects.create_user(
+            username="testuser1", password="password1")
+        testuser2 = User.objects.create_user(
+            username="testuser2", password="password2")
+
+        testuser1.save()
+        testuser2.save()
+
+        can_add_genre_permission = Permission.objects.get(name='Can add genre')
+
+        testuser2.user_permissions.add(can_add_genre_permission)
+        testuser2.save()
+
+    def test_redirect_if_not_logged_in(self):
+
+        response = self.client.get(reverse('genre-create'))
+
+        self.assertNotEqual(response.status_code, 200)
+        self.assertRedirects(
+            response, '/accounts/login/?next=/catalog/genre/create/')
+
+    def test_block_user_logged_in_without_permission(self):
+
+        self.client.login(username="testuser1", password="password1")
+
+        response = self.client.get(reverse('genre-create'))
+        self.assertEqual(response.status_code, 403)
+
+    def test_allow_user_logged_in_with_permission(self):
+
+        self.client.login(username="testuser2", password="password2")
+
+        response = self.client.get(reverse('genre-create'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_display_correct_template(self):
+        self.client.login(username="testuser2", password="password2")
+        response = self.client.get(reverse('genre-create'))
+
+        self.assertTemplateUsed(response, 'catalog/genre_form.html')
+
+    def test_redirect_user_to_genre_detail_on_correct_submission(self):
+        self.client.login(username="testuser2", password="password2")
+        response = self.client.post(reverse('genre-create'), {
+            'pk': '1',
+            'name': 'Thriller'
+        })
+
+        self.assertRedirects(response, reverse(
+            'genre-detail', kwargs={'pk': 1}))
