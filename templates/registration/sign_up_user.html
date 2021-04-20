@@ -1,0 +1,67 @@
+{% extends 'base_generic.html' %} 
+
+
+
+{% block sidebar %}
+  
+{% endblock sidebar %}
+  
+
+{% block content %}
+
+<div class="signup-wrapper">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <h1>Create an account</h1>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-wrapper">
+          <label>Username</label>
+          {{form.username}}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="input-wrapper">
+          <label>First Name</label>
+          {{form.first_name}}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="input-wrapper">
+          <label>Last Name</label>
+          {{form.last_name}}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="input-wrapper">
+          <label>Password</label>
+          {{form.password1}}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="input-wrapper">
+          <label>Confirm Password</label>
+          {{form.password2}}
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        {{form.password1.help_text}}
+      </div>
+
+      <div class="col-md-12">
+        <div class="input-wrapper">
+          <input type="submit" value="Create Account" class="fw-600 c-white" />
+          <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+{% endblock content %}
