@@ -82,11 +82,11 @@ class BorrowedBooksForLibrarian(PermissionRequiredMixin, generic.ListView):
     template_name = 'catalog/bookinstance_list_borrowed_librarian.html'
     paginate_by = 10
 
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.change_bookinstance'
 
 
 @login_required
-@permission_required('catalog.can_mark_returned', raise_exception=True)
+@permission_required('catalog.change_bookinstance', raise_exception=True)
 def renew_book_librarian(request, pk):
     book_instance = get_object_or_404(BookInstance, pk=pk)
 
