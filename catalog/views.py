@@ -180,3 +180,9 @@ class PublisherListView(generic.ListView):
 
 class PublisherDetailView(generic.DetailView):
     model = Publisher
+
+
+class PublisherCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'catalog.add_publisher'
+    model = Publisher
+    fields = ('name',)

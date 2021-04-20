@@ -46,6 +46,8 @@ urlpatterns += [
          views.PublisherListView.as_view(), name='publishers'),
     path('publisher/<int:pk>',
          views.PublisherDetailView.as_view(), name='publisher-detail'),
+    path('publisher/create/',
+         views.PublisherCreateView.as_view(), name='publisher-create'),
 ]
 
 
