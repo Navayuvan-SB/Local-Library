@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, Book, BookInstance, Genre, Language
+from .models import Author, Book, BookInstance, Genre, Language, Publisher
 
 
 class BookInline(admin.StackedInline):
@@ -50,4 +50,9 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
     pass
