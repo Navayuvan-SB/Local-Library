@@ -15,6 +15,10 @@
   <p><strong> ISBN: </strong>{{book.isbn}}</p>
   <p><strong> Language: </strong>{{book.language}}</p>
 
+  {% empty %}
+
+  <p>No books found!</p>
+
   {% endfor %}
 </div>
 
