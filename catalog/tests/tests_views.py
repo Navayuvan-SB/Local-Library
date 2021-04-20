@@ -487,3 +487,27 @@ class GenreListViewTest(TestCase):
         self.assertTrue('is_paginated' in response.context)
         self.assertTrue(response.context['is_paginated'])
         self.assertTrue(len(response.context['genre_list']) == 4)
+
+
+class GenreDetailViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        Genre.objects.create(name="Thriller")
+
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/catalog/genre/1')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_accessible_by_name(self):
+        response = self.client.get(reverse('genre-detail', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('genre-detail', kwargs={'pk': 1}))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/genre_detail.html')
+
+    def test_view_displays_correct_author(self):
+        response = self.client.get(reverse('genre-detail', kwargs={'pk': 1}))
+        self.assertContains(response, "Thriller")
