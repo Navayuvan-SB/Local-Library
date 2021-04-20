@@ -135,9 +135,10 @@ class AuthorDelete(DeleteView):
     success_url = reverse_lazy('authors')
 
 
-class BookCreate(CreateView):
+class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
+    permission_required = 'add-book'
 
 
 class BookUpdate(UpdateView):
