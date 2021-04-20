@@ -141,9 +141,10 @@ class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add-book'
 
 
-class BookUpdate(UpdateView):
+class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Book
     fields = '__all__'
+    permission_required = 'update-book'
 
 
 class BookDelete(DeleteView):
