@@ -8,7 +8,7 @@
   {% for genre in genre_list %}
 
   <li>
-    <a href="">
+    <a href="{{ genre.get_absolute_url }}">
       {{genre.name}}
     </a>
   </li>
