@@ -86,7 +86,7 @@ class AuthorCreateViewTest(TestCase):
         testuser2.save()
 
         can_mark_returned_permission = Permission.objects.get(
-            codename='can_mark_returned')
+            codename='add_author')
 
         testuser2.user_permissions.add(can_mark_returned_permission)
         testuser2.save()
@@ -321,7 +321,7 @@ class RenewBookInstancesViewTest(TestCase):
         test_user1.save()
         test_user2.save()
 
-        permission = Permission.objects.get(name='Set book as returned')
+        permission = Permission.objects.get(codename='change_bookinstance')
         test_user2.user_permissions.add(permission)
         test_user2.save()
 
