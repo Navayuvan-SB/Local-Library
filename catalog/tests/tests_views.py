@@ -451,3 +451,39 @@ class RenewBookInstancesViewTest(TestCase):
         self.assertFormError(response, 'form', 'renewal_date',
                              'Invalid date - renewal more than 4 weeks ahead')
 
+
+class GenreListViewTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        number_of_genres = 14
+        for genre_id in range(number_of_genres):
+            Genre.objects.create(name=f'Thriller {genre_id}')
+
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/catalog/genres/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_url_accessible_by_name(self):
+        response = self.client.get(reverse('genres'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse('genres'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'catalog/genre_list.html')
+
+    def test_pagination_is_ten(self):
+        response = self.client.get(reverse('genres'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'])
+        self.assertTrue(len(response.context['genre_list']) == 10)
+
+    def test_lists_all_authors(self):
+        response = self.client.get(reverse('genres') + '?page=2')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('is_paginated' in response.context)
+        self.assertTrue(response.context['is_paginated'])
+        self.assertTrue(len(response.context['genre_list']) == 4)
