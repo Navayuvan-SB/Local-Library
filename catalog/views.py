@@ -117,7 +117,7 @@ def renew_book_librarian(request, pk):
 
 class AuthorCreate(PermissionRequiredMixin, CreateView):
 
-    permission_required = 'catalog.can_mark_returned'
+    permission_required = 'catalog.add_author'
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
     initial = {
@@ -125,32 +125,34 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
     }
 
 
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Author
     fields = '__all__'
+    permission_required = 'catalog.change_author'
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+    permission_required = 'catalog.delete_author'
 
 
 class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Book
     fields = '__all__'
-    permission_required = 'add-book'
+    permission_required = 'catalog.add_book'
 
 
 class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Book
     fields = '__all__'
-    permission_required = 'update-book'
+    permission_required = 'catalog.change_book'
 
 
 class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
-    permission_required = 'delete-book'
+    permission_required = 'catalog.delete_book'
 
 
 class GenreListView(generic.ListView):
@@ -169,7 +171,7 @@ class GenreCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
 
 
 class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'catalog.update_genre'
+    permission_required = 'catalog.change_genre'
     model = Genre
     fields = ('name',)
 
@@ -197,7 +199,7 @@ class PublisherCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.C
 
 
 class PublisherUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
-    permission_required = 'catalog.update_publisher'
+    permission_required = 'catalog.change_publisher'
     model = Publisher
     fields = ('name',)
 
