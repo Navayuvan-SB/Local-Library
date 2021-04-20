@@ -192,3 +192,10 @@ class PublisherUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.U
     permission_required = 'catalog.update_publisher'
     model = Publisher
     fields = ('name',)
+
+
+class PublisherDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'catalog.delete_publisher'
+    model = Publisher
+
+    success_url = reverse_lazy('publishers')

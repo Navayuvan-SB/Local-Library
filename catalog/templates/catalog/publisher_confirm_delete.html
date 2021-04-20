@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Delete Publisher</h1>
+
+<p>Are you sure want to delete the publisher: {{publisher}}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, Delete" />
+</form>
+
+{% endblock content %}
