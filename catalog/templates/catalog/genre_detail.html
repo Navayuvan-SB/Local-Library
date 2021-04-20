@@ -1,4 +1,12 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends "base_generic.html" %}
+
+{% block title %}
+
+  {{genre.name}}
+
+{% endblock title %}
+
+{% block content %}
 
 <div class="header">
   <h1>{{ genre.name }}</h1>

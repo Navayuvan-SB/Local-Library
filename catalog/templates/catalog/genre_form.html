@@ -1,4 +1,16 @@
-{% extends "base_generic.html" %} {% block content %}
+{% extends "base_generic.html" %}
+
+{% block title %}
+
+  {% if object %}
+  Edit Genre
+  {% else %}
+  Add Genre
+  {% endif %}
+
+{% endblock title %}
+
+{% block content %}
 
 <div class="header">
   
