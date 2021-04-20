@@ -23,6 +23,9 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("genre-detail", args=[str(self.id)])
+
 
 class Author(models.Model):
 

@@ -25,4 +25,6 @@ urlpatterns = [
          views.GenreListView.as_view(), name='genres'),
     path('genre/<int:pk>',
          views.GenreDetailView.as_view(), name='genre-detail'),
+    path('genre/create/',
+         views.GenreCreateView.as_view(), name='genre-create'),
 ]

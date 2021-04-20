@@ -152,3 +152,9 @@ class GenreListView(generic.ListView):
 
 class GenreDetailView(generic.DetailView):
     model = Genre
+
+
+class GenreCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = 'catalog.add_genre'
+    model = Genre
+    fields = ('name',)
