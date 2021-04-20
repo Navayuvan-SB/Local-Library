@@ -11,6 +11,9 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("publisher-detail", args=[str(self.id)])
+
 
 class Genre(models.Model):
 

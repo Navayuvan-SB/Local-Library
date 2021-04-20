@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 import datetime
 
-from .models import Book, BookInstance, Author, Genre
+from .models import Book, BookInstance, Author, Genre, Publisher
 from catalog.forms import RenewBookForm
 
 
@@ -171,3 +171,8 @@ class GenreDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Delet
     model = Genre
 
     success_url = reverse_lazy('genres')
+
+
+class PublisherListView(generic.ListView):
+    model = Publisher
+    paginate_by = 10

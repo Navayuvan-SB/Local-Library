@@ -42,9 +42,14 @@ urlpatterns += [
 
 
 urlpatterns += [
+    path('publishers/',
+         views.PublisherListView.as_view(), name='publishers'),
+]
+
+
+urlpatterns += [
     path('book/<uuid:pk>/renew/', views.renew_book_librarian,
          name='renew-book-librarian'),
     path('mybooks/', views.LoanedBooksByUser.as_view(), name="my-borrowed"),
     path('borrowed/', views.BorrowedBooksForLibrarian.as_view(), name="borrowed"),
-
 ]

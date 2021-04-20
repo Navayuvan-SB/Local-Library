@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %} {% block content %}
+
+<h1>Publisher List</h1>
+
+{% if publisher_list %}
+
+<ul>
+  {% for publisher in publisher_list %}
+
+  <li>
+    <a href="{{ publisher.get_absolute_url }}">
+      {{ publisher.name }}
+    </a>
+  </li>
+
+  {% endfor %}
+</ul>
+
+{% else %}
+
+<p>There are no publishers found in the database</p>
+
+{% endif %} {% endblock %}
