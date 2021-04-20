@@ -176,3 +176,7 @@ class GenreDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.Delet
 class PublisherListView(generic.ListView):
     model = Publisher
     paginate_by = 10
+
+
+class PublisherDetailView(generic.DetailView):
+    model = Publisher
