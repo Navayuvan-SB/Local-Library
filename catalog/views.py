@@ -124,6 +124,13 @@ class AuthorCreate(PermissionRequiredMixin, CreateView):
         'date_of_death': '11/06/2020'
     }
 
+    def get_success_url(self):
+        next_route = self.request.GET.get('next')
+        if next_route:
+            return next_route
+
+        return reverse('author-detail', kwargs={'pk': self.object.id})
+
 
 class AuthorUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Author
@@ -168,6 +175,13 @@ class GenreCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
     permission_required = 'catalog.add_genre'
     model = Genre
     fields = ('name',)
+
+    def get_success_url(self):
+        next_route = self.request.GET.get('next')
+        if next_route:
+            return next_route
+
+        return reverse('genre-detail', kwargs={'pk': self.object.id})
 
 
 class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):

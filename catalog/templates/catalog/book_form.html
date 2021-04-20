@@ -18,7 +18,14 @@
     </div>
 
     <div class="col-md-3">
-      <label for="">Author</label>
+      <label for="">
+        Author
+        <a href="{% url 'author-create' %}?next=/catalog/book/create/">
+          <div class="icon-btn-wrapper ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>    
+          </div>
+        </a>
+      </label>
       {{form.author}}
     </div>
 
@@ -33,7 +40,14 @@
     </div>
 
     <div class="col-md-3">
-      <label for="">Genre</label>
+      <label for="">
+        Genre
+        <a href="{% url 'genre-create' %}?next=/catalog/book/create/">
+          <div class="icon-btn-wrapper ml-2">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>    
+          </div>
+        </a>
+      </label>
       {{form.genre}}
     </div>
 
