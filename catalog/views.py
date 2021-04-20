@@ -158,3 +158,9 @@ class GenreCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
     permission_required = 'catalog.add_genre'
     model = Genre
     fields = ('name',)
+
+
+class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = 'catalog.update_genre'
+    model = Genre
+    fields = ('name',)
