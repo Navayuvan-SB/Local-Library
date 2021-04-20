@@ -21,4 +21,6 @@ urlpatterns = [
          views.BookUpdate.as_view(), name='book-update'),
     path('book/<int:pk>/delete/',
          views.BookDelete.as_view(), name='book-delete'),
+    path('genres/',
+         views.GenreListView.as_view(), name='genres'),
 ]

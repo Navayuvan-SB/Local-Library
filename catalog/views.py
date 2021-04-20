@@ -143,3 +143,8 @@ class BookUpdate(UpdateView):
 class BookDelete(DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+
+
+class GenreListView(generic.ListView):
+    model = Genre
+    paginate_by = 10
