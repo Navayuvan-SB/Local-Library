@@ -29,4 +29,6 @@ urlpatterns = [
          views.GenreCreateView.as_view(), name='genre-create'),
     path('genre/<int:pk>/edit',
          views.GenreUpdateView.as_view(), name='genre-update'),
+    path('genre/<int:pk>/delete',
+         views.GenreDeleteView.as_view(), name='genre-delete'),
 ]

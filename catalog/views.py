@@ -164,3 +164,10 @@ class GenreUpdateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Updat
     permission_required = 'catalog.update_genre'
     model = Genre
     fields = ('name',)
+
+
+class GenreDeleteView(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = 'catalog.delete_genre'
+    model = Genre
+
+    success_url = reverse_lazy('genres')
