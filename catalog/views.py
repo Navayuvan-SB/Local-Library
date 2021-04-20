@@ -148,3 +148,7 @@ class BookDelete(DeleteView):
 class GenreListView(generic.ListView):
     model = Genre
     paginate_by = 10
+
+
+class GenreDetailView(generic.DetailView):
+    model = Genre
